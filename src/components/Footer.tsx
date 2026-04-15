@@ -1,22 +1,22 @@
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 const quickLinks = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/services", label: "Services" },
-  { to: "/projects", label: "Projects" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/reviews", label: "Reviews" },
-  { to: "/contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/projects", label: "Projects" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 const serviceLinks = [
-  { to: "/services/lawn-mowing", label: "Lawn Mowing" },
-  { to: "/services/gardening", label: "Gardening" },
-  { to: "/services", label: "Weed Eating" },
-  { to: "/services", label: "Spraying" },
-  { to: "/services", label: "Trimming" },
+  { href: "/services/lawn-mowing", label: "Lawn Mowing" },
+  { href: "/services/gardening", label: "Gardening" },
+  { href: "/services", label: "Weed Eating" },
+  { href: "/services", label: "Spraying" },
+  { href: "/services", label: "Trimming" },
 ] as const;
 
 export default function Footer() {
@@ -46,7 +46,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.to} className="text-sm opacity-70 hover:opacity-100 transition-opacity">
+                  <Link href={link.href} className="text-sm opacity-70 hover:opacity-100 transition-opacity">
                     {link.label}
                   </Link>
                 </li>
@@ -59,7 +59,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {serviceLinks.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.to} className="text-sm opacity-70 hover:opacity-100 transition-opacity">
+                  <Link href={link.href} className="text-sm opacity-70 hover:opacity-100 transition-opacity">
                     {link.label}
                   </Link>
                 </li>

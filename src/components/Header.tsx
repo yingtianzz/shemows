@@ -1,25 +1,36 @@
-import { Link } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/services", label: "Services" },
-  { to: "/projects", label: "Projects" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/reviews", label: "Reviews" },
-  { to: "/contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/projects", label: "Projects" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname?.startsWith(href);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <img
               src="/images/logo/shemows-logo.jpg"
               alt="She Mows Logo"
@@ -34,11 +45,13 @@ export default function Header() {
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
-                key={link.to}
-                to={link.to}
-                activeProps={{ className: "text-primary bg-secondary" }}
-                activeOptions={{ exact: link.to === "/" }}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-secondary transition-colors"
+                key={link.href}
+                href={link.href}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive(link.href)
+                    ? "text-primary bg-secondary"
+                    : "text-foreground hover:text-primary hover:bg-secondary"
+                }`}
               >
                 {link.label}
               </Link>
@@ -56,7 +69,7 @@ export default function Header() {
               WhatsApp
             </a>
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:bg-accent transition-colors shadow-md"
             >
               Get a Quote
@@ -78,11 +91,13 @@ export default function Header() {
           <nav className="flex flex-col px-4 py-3 gap-1">
             {navLinks.map((link) => (
               <Link
-                key={link.to}
-                to={link.to}
-                activeProps={{ className: "text-primary bg-secondary" }}
-                activeOptions={{ exact: link.to === "/" }}
-                className="px-4 py-3 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-secondary transition-colors"
+                key={link.href}
+                href={link.href}
+                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  isActive(link.href)
+                    ? "text-primary bg-secondary"
+                    : "text-foreground hover:text-primary hover:bg-secondary"
+                }`}
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
@@ -99,7 +114,7 @@ export default function Header() {
                 Message on WhatsApp
               </a>
               <Link
-                to="/contact"
+                href="/contact"
                 className="flex items-center justify-center px-4 py-3 rounded-full text-sm font-bold bg-primary text-primary-foreground"
                 onClick={() => setMobileOpen(false)}
               >
